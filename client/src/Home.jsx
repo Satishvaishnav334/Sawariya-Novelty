@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const HeroSection = () => (
   <section className="w-full flex justify-center h-100 bg-pink-500 "
 >
-    <div className=" bg-no-repeat h-100 w-50 bg-cover p-20 flex flex-col gap-5 text-white"  style={{ backgroundImage: `url('../public/sawariyaji.jpg')` ,width:"50%"}}>
+    <div className=" bg-no-repeat h-100 w-50 bg-cover p-20 flex flex-col gap-5 text-white"  style={{ backgroundImage: `url('/sawariyaji.jpg')` ,width:"50%"}}>
 </div>
  <div className=" bg-no-repeat h-100 w-50 bg-cover p-20 flex flex-col gap-5 text-white"  >
     <motion.h1
