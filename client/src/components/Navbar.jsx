@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons";
+import { ShoppingCart, User, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const mockUser = {
@@ -18,7 +18,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(mockUser.isLoggedIn ? mockUser : null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const location = useLocation(); // 👈 Get current route
+  const location = useLocation();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const handleAuth = () => setUser(user ? null : mockUser);
@@ -34,11 +34,7 @@ const Navbar = () => {
           {navLinks.map((link) => {
             const isActive = location.pathname === link.to;
             return (
-              <motion.div
-                key={link.name}
-                whileHover={{ scale: 1.05 }}
-                className="relative group"
-              >
+              <motion.div key={link.name} whileHover={{ scale: 1.05 }} className="relative group">
                 <Link
                   to={link.to}
                   className={`font-medium transition ${
@@ -60,7 +56,7 @@ const Navbar = () => {
           })}
 
           <motion.div whileTap={{ scale: 0.9 }} className="relative">
-            <FiShoppingCart className="text-xl text-gray-700 cursor-pointer hover:text-indigo-600" />
+            <ShoppingCart className="text-xl text-gray-700 cursor-pointer hover:text-indigo-600" />
             <span className="absolute -top-2 -right-2 text-[10px] bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
               3
             </span>
@@ -72,7 +68,7 @@ const Navbar = () => {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="text-gray-700 hover:text-indigo-600 transition"
             >
-              <FiUser className="text-xl" />
+              <User className="text-xl" />
             </motion.button>
 
             <AnimatePresence>
@@ -108,7 +104,7 @@ const Navbar = () => {
         </div>
 
         <button onClick={toggleMenu} className="md:hidden text-gray-700">
-          {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -138,7 +134,7 @@ const Navbar = () => {
 
             <div className="mt-2 flex justify-between items-center">
               <motion.div whileTap={{ scale: 0.9 }} className="relative">
-                <FiShoppingCart className="text-xl text-gray-700 cursor-pointer hover:text-indigo-600" />
+                <ShoppingCart className="text-xl text-gray-700 cursor-pointer hover:text-indigo-600" />
                 <span className="absolute -top-2 -right-2 text-[10px] bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
                   3
                 </span>
