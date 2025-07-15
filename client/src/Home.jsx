@@ -1,18 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-
 const HeroSection = () => (
-  <section className="bg-pink-100 py-20 text-center">
+  <section className="w-full flex justify-center h-100 bg-pink-500 "
+>
+    <div className=" bg-no-repeat h-100 w-50 bg-cover p-20 flex flex-col gap-5 text-white"  style={{ backgroundImage: `url('../public/sawariyaji.jpg')` ,width:"50%"}}>
+</div>
+ <div className=" bg-no-repeat h-100 w-50 bg-cover p-20 flex flex-col gap-5 text-white"  >
     <motion.h1
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="text-4xl md:text-6xl font-bold text-pink-700 mb-4"
-    >
+      className="text-4xl md:text-6xl font-bold  mb-4"
+      >
       Welcome to Sawariya Novelty
     </motion.h1>
-    <p className="text-gray-700 text-lg md:text-xl mb-6">
+    <p className=" text-lg md:text-xl mb-6">
       Your destination for premium cosmetics & skincare products.
     </p>
     <motion.div whileHover={{ scale: 1.05 }}>
@@ -20,6 +23,8 @@ const HeroSection = () => (
         Shop Now
       </Link>
     </motion.div>
+        
+          </div>
   </section>
 );
 
