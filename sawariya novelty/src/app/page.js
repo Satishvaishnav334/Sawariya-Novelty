@@ -1,12 +1,6 @@
-'use client';
-import React from 'react'
+// app/page.tsx or app/page.jsx
+import { redirect } from 'next/navigation';
 
-function page() {
-  return (
-    <div className='w-full h-screen text-5xl font-bold flex justify-center items-center'>
-      Landing Page
-    </div>
-  )
+export default function Home() {
+  redirect('/dashboard');
 }
-
-export default page

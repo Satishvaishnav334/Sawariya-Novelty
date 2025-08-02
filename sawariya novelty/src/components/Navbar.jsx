@@ -12,8 +12,8 @@ function Navbar() {
   const { user  } = useUserDataContext()
   const [isOpen, setIsOpen] = useState(false);
   const items = [
-    { label: 'Tasks', href: '/dashboard/tasks' },
-    { label: 'Teams', href: '/dashboard/teams' },
+    { label: 'Products', href: '/dashboard/Products' },
+    { label: 'Home Delivery', href: '/dashboard/delivery' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
     { label: 'Blogs', href: '/blogs' },
@@ -48,8 +48,8 @@ useEffect(()=>{
       <nav className='border-b-1 w-[100%] p-3 '>
         <div className=' flex justify-between items-center   text-[#11111198]'>
           <div className='text-black w-[25%]  lg:w-[40%]'>
-            <Link href='/dashboard'>
-              <h1 className='text-2xl lg:text-4xl font-extrabold md:m-2'>Techy_Teams</h1>
+            <Link href='/dashboard'>  
+              <h1 className='text-2xl lg:text-4xl font-extrabold md:m-2'>Sawariya Novelty</h1>
             </Link>
           </div>
 

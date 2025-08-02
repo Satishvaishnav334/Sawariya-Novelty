@@ -4,39 +4,16 @@ import { getCookie } from 'cookies-next';
 import { useUserDataContext } from '@/components/context/UserContext';
 function page() {
   const { user, refresh } = useUserDataContext()
-    return (
+  return (
     <div className='flex flex-col w-full p-5 items-start '>
-      <div className='bg-gray-200 flex flex-col justify-start  m-4 rounded-2xl shadow-md  p-10'>
-        <h1 className='text-2xl text-center lg:text-5xl font-extrabold md:m-2'> Hello <span className='text-orange-600 '>{user?.name}</span></h1>
+      <div className='bg-gray-200 flex flex-col justify-start  m-4 rounded-2xl shadow-md  p-8'>
+        <h1 className='text-2xl text-center lg:text-3xl font-extrabold md:m-2'> 🙏 नमस्ते!  <span className='text-orange-600 '><HindiGreeting /></span></h1>
+      </div>
+      <div className='w-full flex flex-col justify-center  m-4 rounded-2xl   p-10'>
+        <h1 className='text-2xl text-center lg:text-5xl font-extrabold md:m-2'> Wellcome To <span className='text-orange-600 '>Sawariya Novelty</span></h1>
       </div>
       <div className='flex w-full justify-between gap-5 my-5'>
-        <div className='w-[50%]  bg-gray-200   rounded-xl shadow-md p-5'>
-          <h1 className='text-xl text-center lg:text-3xl font-bold md:m-2'>My Panding Task</h1>
-          <div className='flex flex-col gap-5 mt-5'>
-            {user?.tasks?.map((task, id) => (
-              <div key={id} className='flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow'>
-                <div className='flex flex-col items-center gap-4'>
-                  <h1 className='text-lg font-semibold'>{task.title}</h1>
-                  <h1 className='text-lg font-semibold'>{task.status}</h1>
-                </div>
-              </div>
-            )
-            )}
-          </div>
-        </div>
-        <div className='w-[50%]  bg-gray-200 rounded-xl shadow-md p-5'>
-          <h1 className='text-xl text-center lg:text-3xl font-bold md:m-2'>My Team</h1>
-          <div className='flex flex-col gap-5 mt-5'>
-            {user?.team?.map((team, id) => (
-              <div key={id} className='flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow'>
-                <div className='flex items-center gap-4'>
-                  <h1 className='text-lg font-semibold'>{team.teamName}</h1>
-                </div>
-              </div>
-            )
-            )}
-          </div>
-        </div>
+       
       </div>
     </div>
   )
@@ -54,4 +31,38 @@ function formatDate(dateString) {
     minute: '2-digit',
     hour12: true
   });
+}
+
+export function HindiGreeting() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  const [timeGreeting, settimeGreeting] = useState('')
+  const [emoji, setemoji] = useState('')
+    ;
+
+  useEffect(() => {
+    if (hour >= 5 && hour < 12) {
+      settimeGreeting('Good Morning');
+     
+      setemoji('🌅');
+    } else if (hour >= 12 && hour < 17) {
+      settimeGreeting('Good Afternoon');
+     
+      setemoji('☀️');
+    } else if (hour >= 17 && hour < 21) {
+      settimeGreeting('Good Evening');
+      setemoji('🌇');
+
+    } else {
+      settimeGreeting('Good Night');
+      ('शुभ रात्रि');
+      setemoji('🌙');
+
+    }
+  }, [])
+
+  return <span>
+    {emoji} {timeGreeting}
+  </span>
 }
