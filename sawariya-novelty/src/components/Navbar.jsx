@@ -92,7 +92,7 @@ useEffect(()=>{
           </div>
 
           {isOpen && (
-            <div className='absolute top-15 right-0 bg-white m-2 shadow-lg rounded-lg p-4 w-48'>
+            <div className='absolute top-15 right-0 z-50 bg-white m-2 shadow-lg rounded-lg p-4 w-48'>
               < DropdownMenu role={user?.role}
                 options={[
 
@@ -113,15 +113,10 @@ useEffect(()=>{
                   },
                 ]}
               >
-                Options
+               Profile
               </DropdownMenu>
 
               <div className=' flex  flex-col justify-between items-start my-5   font-semibold text-lg gap-4'>
-                  {user?.role == 'admin' && (
-              <Link href='/dashboard/admin' className='hover:text-[#111111d1]  font-semibold transition-colors duration-300'>
-                Admin Panel
-              </Link>
-            )}
                 {items.map((item, index) => (
                   <Link key={index} href={item.href} className='hover:text-[#111111d1] transition-colors duration-300'>
                     {item.label}
