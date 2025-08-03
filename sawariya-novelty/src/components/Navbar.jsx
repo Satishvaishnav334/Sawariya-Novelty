@@ -14,10 +14,10 @@ function Navbar() {
   const items = [
     { label: 'Products', href: '/dashboard/Products' },
     { label: 'Home Delivery', href: '/dashboard/delivery' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Blogs', href: '/blogs' },
-    { label: 'Pricing', href: '/pricing' },
+    { label: 'About', href: '/dashboard/about' },
+    { label: 'Contact', href: '/dashboard/contact' },
+    { label: 'Blogs', href: '/dashboard/blogs' },
+    { label: 'Pricing', href: '/dashboard/pricing' },
   
   ]
   
@@ -98,12 +98,12 @@ useEffect(()=>{
 
                   {
                     label: "Dashboard",
-                    onClick: () => router.push('/admin/dashboard'),
+                    onClick: () => router.push('/dashboard/admin/'),
                     Icon: <House className="h-6 w-6" />,
                   },
                   {
                     label: "Profile",
-                    onClick: () => router.push('/admin/profile'),
+                    onClick: () => router.push('/dashboard/profile'),
                     Icon: <UserPen className="h-6 w-6" />,
                   },
                   {
