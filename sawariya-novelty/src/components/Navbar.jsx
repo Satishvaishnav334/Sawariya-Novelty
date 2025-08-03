@@ -1,7 +1,7 @@
 'use client';
 import React from 'react'
 import { DropdownMenu } from "@/components/ui/dropdown-menu"
-import { UserPen, House, User, LogOut, AlignRight } from "lucide-react"
+import { UserPen, House, User, LogOut, AlignRight ,X} from "lucide-react"
 import { useEffect, useState } from "react";
 import { deleteCookie, getCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation';
@@ -52,14 +52,16 @@ useEffect(()=>{
               <h1 className='text-2xl lg:text-4xl font-extrabold md:m-2'>Sawariya Novelty</h1>
             </Link>
           </div>
-
-          <div className=' hidden md:flex justify-between items-center w-[45%]   font-semibold text-lg gap-4'>
-            
-            {user?.role == 'admin' && (
-              <Link href='/dashboard/admin' className='hover:text-[#111111d1]  font-semibold transition-colors duration-300'>
+          <div className=' flex justify-between items-center    font-semibold text-lg gap-4'>
+ {user?.role == 'admin' && (
+              <Link href='/dashboard/admin' className='hover:text-[#111111d1] w-50  font-semibold transition-colors duration-300'>
                 Admin Panel
               </Link>
             )}
+            </div>
+          <div className=' hidden md:flex justify-between items-center w-[45%]   font-semibold text-lg gap-4'>
+            
+           
 
             {items.map((item, index) => (
               <Link key={index} href={item.href} className='hover:text-[#111111d1] transition-colors duration-300'>
@@ -88,7 +90,7 @@ useEffect(()=>{
           </div>
 
           <div className=' md:hidden flex justify-end items-center  gap-2 '>
-            <AlignRight onClick={() => setIsOpen(!isOpen)} />
+            {!isOpen ? <AlignRight onClick={() => setIsOpen(!isOpen)} /> : <X onClick={() => setIsOpen(!isOpen)} />}
           </div>
 
           {isOpen && (
@@ -117,6 +119,7 @@ useEffect(()=>{
               </DropdownMenu>
 
               <div className=' flex  flex-col justify-between items-start my-5   font-semibold text-lg gap-4'>
+                  
                 {items.map((item, index) => (
                   <Link key={index} href={item.href} className='hover:text-[#111111d1] transition-colors duration-300'>
                     {item.label}
