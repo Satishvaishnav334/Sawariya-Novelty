@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { getCookie } from 'cookies-next';
 import { useUserDataContext } from '@/components/context/UserContext';
+import { useRouter } from 'next/navigation';
 function page() {
   const { user, refresh } = useUserDataContext()
+  const router = useRouter()
   return (
     <div className='flex flex-col w-full p-5 items-start '>
       <div className='bg-gray-200 flex flex-col justify-start  m-4 rounded-2xl shadow-md  p-8'>
