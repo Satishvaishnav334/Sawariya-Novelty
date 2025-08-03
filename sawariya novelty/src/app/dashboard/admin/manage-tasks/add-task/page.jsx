@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Calendar } from "@/components/ui/calendar.jsx"
 import { useUserDataContext } from '@/components/context/UserContext'
-function page() {
+function Page() {
   const { users, refresh,user } = useUserDataContext
   const [title, setTitle] = useState()
   const [desc, setDesc] = useState()
@@ -104,4 +104,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

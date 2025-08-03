@@ -1,7 +1,7 @@
 'use client';
 import React from 'react'
 import { useUserDataContext } from '@/components/context/UserContext';
-function page() {
+function Page() {
   const { user, refresh } = useUserDataContext()
 
   return (
@@ -16,7 +16,7 @@ function page() {
   )
 }
 
-export default page
+export default Page
 
 function formatDate(dateString) {
   const date = new Date(dateString);

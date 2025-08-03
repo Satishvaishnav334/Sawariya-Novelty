@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getCookie } from 'cookies-next';
 import { useUserDataContext } from '@/components/context/UserContext';
 import { useRouter } from 'next/navigation';
-function page() {
+function Page() {
   const { user, refresh } = useUserDataContext()
   const router = useRouter()
   return (
@@ -21,9 +21,9 @@ function page() {
   )
 }
 
-export default page
+export default Page
 
-function formatDate(dateString) {
+function FormatDate(dateString) {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -62,7 +62,7 @@ export function HindiGreeting() {
       setemoji('🌙');
 
     }
-  }, [])
+  }, [hour])
 
   return <span>
     {emoji} {timeGreeting}

@@ -3,7 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useUserDataContext } from '@/components/context/UserContext'
-function page() {
+function Page() {
   const { users, user } = useUserDataContext()
   const [title, setTitle] = useState('')
   const [level, setLevel] = useState('level 3')
@@ -105,4 +105,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

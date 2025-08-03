@@ -13,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-function page() {
+function Page() {
   const { user} = useUserDataContext()
   const router = useRouter()
 
@@ -56,7 +56,7 @@ function page() {
   )
 }
 
-export default page
+export default Page
 
 function formatDate(dateString) {
   const date = new Date(dateString);
