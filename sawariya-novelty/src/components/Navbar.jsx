@@ -117,6 +117,11 @@ useEffect(()=>{
               </DropdownMenu>
 
               <div className=' flex  flex-col justify-between items-start my-5   font-semibold text-lg gap-4'>
+                  {user?.role == 'admin' && (
+              <Link href='/dashboard/admin' className='hover:text-[#111111d1]  font-semibold transition-colors duration-300'>
+                Admin Panel
+              </Link>
+            )}
                 {items.map((item, index) => (
                   <Link key={index} href={item.href} className='hover:text-[#111111d1] transition-colors duration-300'>
                     {item.label}
