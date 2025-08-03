@@ -98,17 +98,17 @@ useEffect(()=>{
 
                   {
                     label: "Dashboard",
-                    onClick: () => router.push('/dashboard/admin/'),
+                    onClick: () => {router.push('/dashboard/admin/');setIsOpen((false))},
                     Icon: <House className="h-6 w-6" />,
                   },
                   {
                     label: "Profile",
-                    onClick: () => router.push('/dashboard/profile'),
+                    onClick: () =>{ router.push('/dashboard/profile');setIsOpen((false))},
                     Icon: <UserPen className="h-6 w-6" />,
                   },
                   {
                     label: "Logout",
-                    onClick: () => Logout(),
+                    onClick: () => {Logout();setIsOpen((false))},
                     Icon: <LogOut className="h-6 w-6" />,
                   },
                 ]}

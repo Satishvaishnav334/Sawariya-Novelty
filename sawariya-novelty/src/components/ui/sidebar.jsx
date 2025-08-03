@@ -78,7 +78,8 @@ export const DesktopSidebar = ({
   );
 };
 
-export const MobileSidebar = ({
+export const 
+MobileSidebar = ({
   className,
   children,
   ...props
@@ -123,16 +124,24 @@ export const MobileSidebar = ({
     </>
   );
 };
-
 export const SidebarLink = ({
   link,
   className,
   ...props
 }) => {
-  const { open, animate } = useSidebar();
+  const { open, setOpen, animate } = useSidebar();
+
+  const handleClick = () => {
+    // Close sidebar only on mobile
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setOpen(false);
+    }
+  };
+
   return (
     <Link
       href={link.href}
+      onClick={handleClick}
       className={cn("flex items-center justify-start gap-2 group/sidebar py-2", className)}
       {...props}>
       {link.icon}

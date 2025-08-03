@@ -9,7 +9,6 @@ const DropdownMenu = ({
   role
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAdmin,setIsAdmin] = useState()
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
