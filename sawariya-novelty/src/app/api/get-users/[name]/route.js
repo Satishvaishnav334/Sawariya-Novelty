@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import connectToDatabase from '../../lib/connect.js';
+import connectToDatabase from '../../../../lib/connect.js';
 import Member from '../../models/users.js';
-import teamModel from '../../models/teams.js';
-import taskModel from '../../models/task.js';
+import teamModel from '../../models/Category.js';
+import taskModel from '../../models/Product.js';
 export async function GET(req, { params }) {
     try {
         await connectToDatabase();

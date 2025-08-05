@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt';
 import JsonWebToken from "jsonwebtoken";
 import { cookies } from 'next/headers';
-import connectToDatabase from "../../lib/connect";
+import connectToDatabase from "../../../../lib/connect";
 export async function POST(request) {
   try {
 connectToDatabase()

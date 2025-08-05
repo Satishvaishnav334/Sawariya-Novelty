@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import connectToDatabase from '../../lib/connect.js';
+import connectToDatabase from '../../../../lib/connect.js';
 import Member from '../../models/users.js'; 
 export async function GET(req,{params}) {
     try{

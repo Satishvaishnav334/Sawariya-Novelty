@@ -7,19 +7,18 @@ import Link from "next/link"
 import logo from "../../../public/logo.png"
 function StackedCircularFooter() {
   const items = [
-    { label: 'Tasks', href: '/tasks' },
-    { label: 'Teams', href: '/teams' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Blogs', href: '/blogs' },
-    { label: 'Pricing', href: '/pricing' },
+    { label: 'Prducts', href: '/dashboard/Products' },
+    { label: 'About', href: '/dashboard/about' },
+    { label: 'Contact', href: '/dashboard/contact' },
+    { label: 'Blogs', href: '/dashboard/blogs' },
+    { label: 'Pricing', href: '/dashboard/pricing' },
   ]
   return (
     <footer className="p-10 border-t border-gray-500 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center">
           <div className="mb-8 rounded-full  p-8">
-            <h1 className="text-2xl lg:text-4xl font-extrabold ">Techy_Teams</h1>
+            <h1 className="text-2xl lg:text-4xl font-extrabold ">Sawariya Novelty</h1>
           </div>
           <nav className="mb-8 flex flex-wrap justify-center gap-6">
             {items.map((item, index) => (

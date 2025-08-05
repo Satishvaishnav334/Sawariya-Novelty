@@ -1,107 +1,180 @@
-'use client'
-import React from 'react'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { Calendar } from "@/components/ui/calendar.jsx"
-import { useUserDataContext } from '@/components/context/UserContext'
-function Page() {
-  const { users, refresh,user } = useUserDataContext
-  const [title, setTitle] = useState()
-  const [desc, setDesc] = useState()
-  const [status, setStatus] = useState("pending")
-  const [priority, setPriority] = useState("medium")
-  const [assignTo, setAssignTo] = useState([])
-  const [date,setDate] = useState()
-  console.log("user",user)
-  const handleCreate = async (e) => {
+'use client';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function ProductUploadPage() {
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
+  const [price, setPrice] = useState('');
+  const [brand, setBrand] = useState('');
+  const [stock, setStock] = useState('');
+  const [category, setCategory] = useState('');
+  const [image, setImage] = useState(null);
+  const [sizes, setSizes] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+
+  // Load categories from backend (optional)
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await axios.get('/api/get-categories'); // Update this route accordingly
+        setAllCategories(res.data);
+      } catch (err) {
+        console.error('Failed to load categories', err);
+      }
+    }
+    fetchCategories();
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append('title', title);
-      formData.append('status', status);
-      formData.append('priority', priority);
-      formData.append('createdBy', user._id);
+      formData.append('name', name);
       formData.append('description', desc);
-      formData.append('assignTo', assignTo);
-      formData.append('dueDate', date);
-      const create = await axios.post('/api/get-tasks', formData)
-      console.log(create)
-    } catch (error) {
-      console.error('Error creating team:', error);
-    }
-    finally {
-      setAssignTo([])
-      setTitle('')
-      setDesc('')
-      setDate('')
+      formData.append('price', price);
+      formData.append('brand', brand);
+      formData.append('stock', stock);
+      formData.append('category', category);
+      formData.append('image', image);
+
+      sizes.forEach(size => formData.append('sizes', size));
+      colors.forEach(color => formData.append('colors', color));
+
+      const res = await axios.post('/api/get-products', formData);
+      console.log('Product created:', res.data);
+      alert('Product uploaded successfully!');
+      
+      // Reset form
+      setName('');
+      setDesc('');
+      setPrice('');
+      setBrand('');
+      setStock('');
+      setCategory('');
+      setImage(null);
+      setSizes([]);
+      setColors([]);
+    } catch (err) {
+      console.error('Product creation failed', err);
+      alert('Failed to upload product');
     }
   };
-  const handleCheckboxChange = (id) => {
-    setAssignTo((prev) => [...prev, id]);
-  };
-  // console.log(assignTo)
 
   return (
-      <div className="  flex flex-col items-center justify-center min-h-screen text-black bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6">Create Task</h1>
-      <form onSubmit={handleCreate} className="p-4 m-2 bg-white rounded shadow-md">
-        <label className="block font-semibold text-2xl  my-1">Team Title</label>
+    <div className="min-h-screen bg-gray-100 flex justify-center items-start py-10">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded shadow-md w-full max-w-2xl space-y-4"
+      >
+        <h2 className="text-2xl font-bold mb-4">Upload Product</h2>
+
         <input
           type="text"
-          className="border border-gray-600 text-xl rounded-2xl w-full p-2"
-          placeholder="Enter Task Name or Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          className="border p-2 w-full rounded"
+          placeholder="Product Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-        <label className="block font-semibold text-2xl  my-1">Task Priority</label>
-        <input
-          type="text"
-          className="border border-gray-600 text-xl rounded-2xl w-full p-2"
-          placeholder="Enter Task Name or Title"
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-        />
-   
-        <label className="block font-semibold text-2xl  my-1">Description</label>
-        <input
-          type="text"
-          className="border border-gray-600 text-xl rounded-2xl w-full p-2"
-          placeholder="Enter Task Description"
+
+        <textarea
+          className="border p-2 w-full rounded"
+          placeholder="Product Description"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
-        
-       
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          className="rounded-lg border"
+
+        <input
+          type="number"
+          className="border p-2 w-full rounded"
+          placeholder="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
         />
-       
-        <div className="p-5 text-2xl rounded-lg border my-4 w-full">
-          <h2 className="text-lg font-semibold mb-3">Select User you Want to Assign Task</h2>
-          <div className="grid grid-cols-2 gap-3 ">
-            {users?.map((member, index) => {
-              return (
-                <label key={index} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
 
-                    value={member.name}
-                    onChange={() => handleCheckboxChange(member._id)}
-                  />
-                  <span>{member.name}</span>
-                </label>
-              );
-            })}
-          </div>
+        <input
+          type="text"
+          className="border p-2 w-full rounded"
+          placeholder="Brand (optional)"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+        />
+
+        <input
+          type="number"
+          className="border p-2 w-full rounded"
+          placeholder="Stock"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
+        />
+
+        <select
+          className="border p-2 w-full rounded"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">Select Category</option>
+          {allCategories.map((cat) => (
+            <option key={cat._id} value={cat._id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+
+        <input
+          type="file"
+          className="border p-2 w-full rounded"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+        />
+
+        {/* Sizes and Colors */}
+        <input
+          type="text"
+          placeholder="Add Size (e.g. M, L)"
+          className="border p-2 w-full rounded"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              setSizes([...sizes, e.target.value]);
+              e.target.value = '';
+            }
+          }}
+        />
+        <div className="flex flex-wrap gap-2">
+          {sizes.map((s, i) => (
+            <span key={i} className="bg-blue-100 px-2 py-1 rounded">{s}</span>
+          ))}
         </div>
-        <button className="bg-blue-600 font-semibold text-white px-3 py-2 my-2 rounded-lg text-xl" type="submit">Create Task</button>
-      </form>
 
+        <input
+          type="text"
+          placeholder="Add Color (e.g. Red, #fff)"
+          className="border p-2 w-full rounded"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              setColors([...colors, e.target.value]);
+              e.target.value = '';
+            }
+          }}
+        />
+        <div className="flex flex-wrap gap-2">
+          {colors.map((c, i) => (
+            <span key={i} className="bg-green-100 px-2 py-1 rounded">{c}</span>
+          ))}
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-3 rounded font-bold hover:bg-blue-700"
+        >
+          Upload Product
+        </button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default Page
+export default ProductUploadPage;

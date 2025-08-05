@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { setCookie } from "cookies-next";
 import jwt from "jsonwebtoken";
 import brecrypt from "bcrypt";
-import connectToDatabase from "../../lib/connect.js";
+import connectToDatabase from "../../../../lib/connect.js";
 export async function POST(request) {
   try {
     const data = await request.formData();
