@@ -17,7 +17,7 @@ export async function POST(request) {
     const isPasswordValid = await brecrypt.compare(password, user.password);
     console.log(isPasswordValid)
     const name = user.name
-    // console.log("user 1", user);
+    console.log("user 1", user);
     if (!isPasswordValid) { return NextResponse.json({ error: "Invalid email or password" }, { status: 401 }); }
     const token = jwt.sign(
       { username: user.name, email: user.email },

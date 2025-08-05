@@ -4,6 +4,12 @@ import Product from '../models/Product.js';
 import { v2 as cloudinary } from 'cloudinary';
 import { Readable } from 'stream';
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 // Cloudinary setup
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -39,15 +45,23 @@ export async function POST(request) {
 
     // Fields
     const name = formData.get('name');
+    const baseSlug = formData.get('slug') || name.toLowerCase().replace(/\s+/g, '-');
     const description = formData.get('description');
     const price = parseFloat(formData.get('price'));
     const category = formData.get('category');
     const brand = formData.get('brand');
     const stock = parseInt(formData.get('stock'), 10);
-    const sizes = formData.getAll('sizes'); // Optional
-    const colors = formData.getAll('colors'); // Optional
+    const sizes = formData.getAll('sizes') || [];
+    const colors = formData.getAll('colors') || [];
 
-    // Get image file
+    // Ensure slug is unique
+    let slug = baseSlug;
+    let count = 1;
+    while (await Product.exists({ slug })) {
+      slug = `${baseSlug}-${count++}`;
+    }
+
+    // Image upload
     const file = formData.get('image');
     let image = {};
 
@@ -58,12 +72,15 @@ export async function POST(request) {
         const stream = cloudinary.uploader.upload_stream(
           { folder: 'products' },
           (error, result) => {
+            console.log(error)
+            console.log(result)
             if (error) reject(error);
             else resolve(result);
           }
         );
         bufferToStream(buffer).pipe(stream);
       });
+
 
       image = {
         public_id: result.public_id,
@@ -74,19 +91,20 @@ export async function POST(request) {
     // Save to MongoDB
     const product = await Product.create({
       name,
+      slug,
       description,
       price,
       category,
       brand,
       stock,
-      images: [image],
+      images: image?.url ? [image] : [],
       sizes,
       colors,
     });
 
     return NextResponse.json(product, { status: 201 });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ error: 'Product creation failed' }, { status: 500 });
+    console.log('❌ Product creation failed:', error);
+    return NextResponse.json({ error: 'Product creation failed', error }, { status: 500 });
   }
 }

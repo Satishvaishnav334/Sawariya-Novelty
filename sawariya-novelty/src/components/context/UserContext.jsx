@@ -22,10 +22,10 @@ export const UserDataProvider = ({ children, name }) => {
             const res = await axios.get(`/api/get-users`);
             setUsers(res.data)
 
-            const res3 = await axios.get('/api/get-teams');
+            const res3 = await axios.get('/api/get-categories');
             setTeams(res3.data)
 
-            const res4 = await axios.get('/api/get-tasks');
+            const res4 = await axios.get('/api/get-products');
             setTasks(res4.data)
 
         } catch (err) {

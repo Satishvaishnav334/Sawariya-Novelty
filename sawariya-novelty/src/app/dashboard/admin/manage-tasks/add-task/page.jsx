@@ -31,6 +31,7 @@ function ProductUploadPage() {
     e.preventDefault();
     try {
       const formData = new FormData();
+      formData.append('slug', name.toLowerCase().replace(/\s+/g, '-'));
       formData.append('name', name);
       formData.append('description', desc);
       formData.append('price', price);
@@ -46,7 +47,6 @@ function ProductUploadPage() {
       console.log('Product created:', res.data);
       alert('Product uploaded successfully!');
       
-      // Reset form
       setName('');
       setDesc('');
       setPrice('');

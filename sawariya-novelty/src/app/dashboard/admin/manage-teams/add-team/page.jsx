@@ -1,108 +1,109 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
 import { useUserDataContext } from '@/components/context/UserContext'
-function Page() {
-  const { users, user } = useUserDataContext()
-  const [title, setTitle] = useState('')
-  const [level, setLevel] = useState('level 3')
-  const [desc, setDesc] = useState([])
-  const [addmemebers, setAddMembers] = useState([])
-// console.log(user)
 
-  const handleCreate = async (e) => {
-    e.preventDefault();
+function CreateCategoryPage() {
+  const { user } = useUserDataContext()
+  const [name, setName] = useState('')
+  const [slug, setSlug] = useState('')
+  const [description, setDescription] = useState('')
+  const [image, setImage] = useState(null)
+  const [isActive, setIsActive] = useState(true)
+
+  const handleCreateCategory = async (e) => {
+    e.preventDefault()
     try {
       const formData = new FormData()
-      formData.append('title', title)
-      formData.append('level', level)
-      formData.append('createdBy', user._id)
-      formData.append('description', desc)
-      formData.append('members', addmemebers)
+      formData.append('name', name)
+      formData.append('slug', slug)
+      formData.append('description', description)
+      formData.append('image', image)
+      formData.append('isActive', isActive)
 
-      const create = await axios.post('/api/get-teams', formData)
+      const response = await axios.post('/api/get-categories', formData)
+      console.log('Category created:', response.data)
+      alert('Category created successfully')
 
+      // Reset form
+      setName('')
+      setSlug('')
+      setDescription('')
+      setImage(null)
+      setIsActive(true)
     } catch (error) {
-      console.error('Error creating team:', error);
+      console.error('Error creating category:', error)
+      alert('Failed to create category')
     }
-    finally {
-
-    }
-  };
-  const handleCheckboxChange = (id) => {
-
-    setAddMembers((prev) => [...prev, id]);
-
-  };
+  }
 
   return (
-    <div className="  flex flex-col   bg-gray-200 m-20  rounded shadow-md text-black">
-      <h1 className="text-3xl m-5 text-center font-bold">Create Team</h1>
-      <form onSubmit={handleCreate} className="p-10 m-2 w-full  ">
-        <div className='flex gap-10 my-5'>
-          <div>
-
-            <label className="block font-semibold text-xl  my-1"> Title</label>
-            <input
-              type="text"
-              className="border border-gray-600 text-xl rounded-2xl  p-2"
-              placeholder="Enter Team Name or Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="block font-semibold text-xl  my-1"> Level</label>
-
-            <select  className="border border-gray-600 text-xl rounded-2xl  p-2">
-              <option value="">Choose an Level</option>
-          
-              <option value="parrot">Level 1</option>
-              <option value="spider">Level 2</option>
-              <option value="goldfish">Level 3 </option>
-            </select>
-            {/* <input
-              type="text"
-              className="border border-gray-600 text-xl rounded-2xl  p-2"
-              placeholder="Enter Team Level : "
-              value={level}
-              onChange={(e) => setLevel(e.target.value)}
-            /> */}
-          </div>
+    <div className="flex flex-col bg-gray-100 min-h-screen px-4 py-10 text-black items-center">
+      <h1 className="text-3xl font-bold mb-6">Create Category</h1>
+      <form onSubmit={handleCreateCategory} className="bg-white p-6 rounded shadow-md w-full max-w-xl space-y-4">
+        <div>
+          <label className="block font-semibold text-lg mb-1">Category Name</label>
+          <input
+            type="text"
+            className="border border-gray-600 rounded p-2 w-full"
+            placeholder="e.g. Skincare"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value)
+              setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'))
+            }}
+          />
         </div>
 
-        <label className="block font-semibold text-2xl  my-1">Description</label>
-        <input
-          type="text"
-          className="border border-gray-600 text-xl rounded-2xl w-[70%] p-2"
-          placeholder="Enter Team Description"
-
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        />
-
-        <div className="p-5 my-5 text-2xl rounded-lg border w-full">
-          <h2 className="text-lg font-semibold mb-3">Select Team Members</h2>
-          <div className="grid grid-cols-2 gap-3">
-            {users?.map((member, index) => {
-              return (
-                <label key={index} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    value={member.name}
-                    onChange={() => handleCheckboxChange(member._id)}
-                  />
-                  <span>{member.name}</span>
-                </label>
-              );
-            })}
-          </div>
+        <div>
+          <label className="block font-semibold text-lg mb-1">Slug</label>
+          <input
+            type="text"
+            className="border border-gray-600 rounded p-2 w-full"
+            placeholder="e.g. skincare"
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+          />
         </div>
-        <button className="bg-blue-600 font-semibold text-white px-3 py-2 my-2 rounded-lg text-xl" type="submit">Create Team</button>
+
+        <div>
+          <label className="block font-semibold text-lg mb-1">Description</label>
+          <textarea
+            className="border border-gray-600 rounded p-2 w-full"
+            placeholder="Describe this category"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block font-semibold text-lg mb-1">Upload Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            className="border border-gray-600 rounded p-2 w-full"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            checked={isActive}
+            onChange={() => setIsActive(!isActive)}
+          />
+          <label className="text-lg font-medium">Is Active</label>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700"
+        >
+          Create Category
+        </button>
       </form>
     </div>
   )
 }
 
-export default Page
+export default CreateCategoryPage

@@ -28,7 +28,7 @@ export default function Page() {
       const formData = new FormData();
       formData.append('email', email);
       formData.append('password', password);
-      const res = await axios.post("/api/auth/member-login", formData)
+      const res = await axios.post("/api/auth/login", formData)
       console.log(res.data)
       router.push(`/dashboard`)
       router.replace('/dashboard')
