@@ -1,66 +1,71 @@
+'use client';
 
-'use client'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import { useRouter } from 'next/navigation';
-import { useUserDataContext } from '@/components/context/UserContext';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+function ProductShowPage() {
+  const [products, setProducts] = useState([]);
 
-function Page() {
-  const { user} = useUserDataContext()
-  const router = useRouter()
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get('/api/get-products');
+        setProducts(res.data);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
+    };
 
+    fetchProducts();
+  }, []);
 
   return (
-    <div className='flex flex-col items-center justify-start h-screen w-full'>
-      <h1 className='text-2xl font-bold my-4'>Welcome Back {user?.name}</h1>
-      <div>
-        <Table>
-          <TableCaption>Your Task</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Title</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Priority</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Due Date</TableHead>
-            </TableRow>
-          </TableHeader>
-          {user.tasks?.map((task, id) => (
-            <TableBody key={id}>
-              <TableRow>
-                <TableCell className="font-medium">{task?.title}</TableCell>
-                <TableCell>{task?.description}</TableCell>
-                <TableCell>{task?.priority}</TableCell>
-                <TableCell>{task?.status}</TableCell>
-                <TableCell className="text-right">{formatDate(task?.dueDate)}</TableCell>
-              </TableRow>
-            </TableBody>
-          ))}
-        </Table>
-      
-      </div>
+    <div className="min-h-screen w-full px-6 py-10 bg-gray-50">
+      <h1 className="text-3xl font-bold text-center mb-8">Product Catalog</h1>
 
+      {products.length === 0 ? (
+        <p className="text-center text-gray-500">No products found.</p>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {products.map((product, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300"
+            >
+              <img
+                src={product?.images?.[0]?.url || '/placeholder.png'}
+                alt={product?.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-semibold">{product.name}</h2>
+                <p className="text-sm text-gray-600 mt-1">{product?.category?.title || 'Uncategorized'}</p>
+                <div className="mt-2 text-lg font-bold text-green-600">₹{product.price}</div>
+                <p className="text-sm text-gray-500">Stock: {product.stock}</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  Added on: {formatDate(product.createdAt)}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default Page
+export default ProductShowPage;
+
+// Format date
 function formatDate(dateString) {
+  if (!dateString) return '-';
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('en-IN', {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
     hour: 'numeric',
-    // minute: '2-digit',
-    hour12: true
+    minute: '2-digit',
+    hour12: true,
   });
 }
