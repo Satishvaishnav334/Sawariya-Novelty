@@ -36,16 +36,16 @@ export default function RootLayout({ children }) {
 
     ];
     const [open, setOpen] = useState(false);
-    useEffect(() => {
-        const checkSession = () => {
-            const token = getCookie('token');
-            if (!token) {
-                router.push('/login');
-            }
-        };
-        checkSession();
+    // useEffect(() => {
+    //     const checkSession = () => {
+    //         const token = getCookie('token');
+    //         if (!token) {
+    //             router.push('/login');
+    //         }
+    //     };
+    //     checkSession();
 
-    }, []);
+    // }, []);
     return (
         <UserDataProvider >
                 
