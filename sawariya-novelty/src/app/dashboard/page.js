@@ -21,6 +21,7 @@ function Page() {
 
     fetchProducts();
   }, []);
+  console.log(products)
   return (
     <div className='flex flex-col w-full p-5 items-start '>
       <div className='bg-gray-200 flex flex-col justify-start  m-4 rounded-2xl shadow-md  p-8'>
@@ -48,7 +49,7 @@ function Page() {
               />
               <div className="p-4">
                 <h2 className="text-xl font-semibold">{product.name}</h2>
-                <p className="text-sm text-gray-600 mt-1">{product?.category?.title || 'Uncategorized'}</p>
+                <p className="text-sm text-gray-600 mt-1">{product?.category?.name || 'Uncategorized'}</p>
                 <div className="mt-2 text-lg font-bold text-green-600">₹{product.price}</div>
                 <p className="text-sm text-gray-500">Stock: {product.stock}</p>
                 <p className="text-xs text-gray-400 mt-2">

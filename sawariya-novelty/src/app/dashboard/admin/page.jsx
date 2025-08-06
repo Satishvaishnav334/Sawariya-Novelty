@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import Link from 'next/link';
 
 function Page() {
   const { users, teams, user, tasks } = useUserDataContext()
@@ -20,6 +21,13 @@ function Page() {
   return (
     <div className='flex flex-col items-center justify-start w-full'>
       <h1 className='text-2xl font-bold my-4'>Welcome Back {user?.name}</h1>
+                <div className='flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow my-5'>
+          <div className='flex items-center gap-4'>
+
+            <h1 className='text-lg font-semibold'><Link href='/dashboard/admin/manage-tasks/add-task'>Add New Task</Link></h1>
+          </div>
+        </div>
+
       <div>
         <Table>
           <TableCaption>Your Task</TableCaption>
