@@ -13,38 +13,61 @@ export const UserDataProvider = ({ children, name }) => {
     const [teams, setTeams] = useState([])
     const [loading, setLoading] = useState(false)
     
-    const fetchContaxtData = async () => {
+    const fetchProducts = async () => {
         try {
             setLoading(true)
-            const name = getCookie('name')
-            const res2 = await axios.get(`/api/get-users/${name}`);
-            setUser(res2.data)
-            const res = await axios.get(`/api/get-users`);
-            setUsers(res.data)
-
-            const res3 = await axios.get('/api/get-categories');
-            setTeams(res3.data)
-
             const res4 = await axios.get('/api/get-products');
             setTasks(res4.data)
-
+            setLoading(false)
         } catch (err) {
             console.error('❌ Failed to fetch categories:', err);
         }
-        finally{
-             setLoading(false)
+    };
+    const fetchUsers = async () => {
+        try {
+            setLoading(true)
+            const res = await axios.get(`/api/get-users`);
+            setUsers(res.data)
+            
+            setLoading(false)
+        } catch (err) {
+            console.error('❌ Failed to fetch categories:', err);
         }
+    };
+    const fetchCat = async () => {
+        try {
+            setLoading(true)
+         const res3 = await axios.get('/api/get-categories');
+            setTeams(res3.data)
+            setLoading(false)
+        } catch (err) {
+            console.error('❌ Failed to fetch categories:', err);
+        }
+    };
+    const fetchUser = async () => {
+        try {
+            const name = getCookie('name')
+            setLoading(true)
+           const res2 = await axios.get(`/api/get-users/${name}`);
+            setUser(res2.data)
+            setLoading(false)
+        } catch (err) {
+            console.error('❌ Failed to fetch categories:', err);
+        }
+      
     };
  
     useEffect(() => {
 
-        fetchContaxtData();
-        
+        fetchProducts();
+        fetchUsers()
+        fetchUser()
+        fetchCat()
 
     }, []);     
    
 return (
-    <UserDataContext.Provider value={{ user, users, refresh: fetchContaxtData, teams, tasks ,loading,setLoading}}>
+    <UserDataContext.Provider value={{ user, users, refresh: fetchProducts, teams, tasks ,loading,setLoading}}>
         {children}
     </UserDataContext.Provider>
 );

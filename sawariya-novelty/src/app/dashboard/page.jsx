@@ -5,23 +5,10 @@ import { useUserDataContext } from '@/components/context/UserContext';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 function Page() {
-  const { user, refresh } = useUserDataContext()
+  const { tasks} = useUserDataContext()
   const router = useRouter()
-   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get('/api/get-products');
-        setProducts(res.data);
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-  console.log(products)
+ 
   return (
     <div className='flex flex-col w-full p-5 items-start '>
       <div className='bg-gray-200 flex flex-col justify-start  m-4 rounded-2xl shadow-md  p-8'>
@@ -33,11 +20,11 @@ function Page() {
        <div className="min-h-screen w-full px-6 py-10 bg-gray-50">
       <h1 className="text-3xl font-bold text-center mb-8">Product Catalog</h1>
 
-      {products.length === 0 ? (
+      {tasks.length === 0 ? (
         <p className="text-center text-gray-500">No products found.</p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {products.map((product, index) => (
+          {tasks.map((product, index) => (
             <div
               key={index}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300"

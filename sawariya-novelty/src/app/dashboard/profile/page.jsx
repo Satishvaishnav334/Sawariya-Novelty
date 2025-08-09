@@ -9,7 +9,7 @@ function Page() {
      if(!user){
         router.push('/login')
     }
-  },[])
+  },[user])
   return (
     <div className='flex justify-center items-center h-[90vh] '>
       <div className='bg-green-300 flex flex-col justify-center  rounded-2xl shadow-xl h-[80%] w-[50%] p-20'>
