@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/navigation";
-import BeautifulLoader from "@/components/Loading";
 export default function RootLayout({ children }) {
     const router = useRouter()
     const links = [
@@ -37,7 +36,7 @@ export default function RootLayout({ children }) {
 
     ];
     const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(true);
+
     // useEffect(() => {
     //     const checkSession = () => {
     //         const token = getCookie('token');
@@ -48,19 +47,12 @@ export default function RootLayout({ children }) {
     //     checkSession();
 
     // }, []);
-    if(loading){
-         <BeautifulLoader variant="spinner" size={56} text="Loading dashboard..." />
-
-    }
+  
     return (
         <UserDataProvider >
             <Navbar />
-            {loading ? 
-              <BeautifulLoader variant="spinner" size={56} text="Loading dashboard..." />
-            :
-            
-            {children}
-        }
+          
+        {children}
         <Footer />
 
           

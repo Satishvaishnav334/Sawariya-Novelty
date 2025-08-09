@@ -23,7 +23,7 @@ function Spinner({ size = 48 }) {
         }}
       />
 
-      {/* Rotating ring (svg) */}
+      
       <svg
         viewBox="0 0 50 50"
         className="animate-[spin_1.1s_linear_infinite]"
@@ -102,19 +102,19 @@ export default function BeautifulLoader({
   size = 48,
   text,
   fullscreen = false,
-  className = '',
+  className = 'w-full',
 }) {
-  const base = 'flex flex-col items-center gap-3 text-center'
+  const base = 'flex flex-col items-center gap-3 h-screen justify-center items-center w-[100vw] text-center'
   const containerClasses = fullscreen
-    ? 'fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4'
+    ? 'fixed inset-0 z-50 h-screen bg-black/40 backdrop-blur-sm flex w-full items-center justify-center p-4'
     : 'inline-flex'
 
   return (
-    <div className={`${containerClasses}`}>
+    <div className={`${containerClasses}`} >
       <div className={`${base} ${className}`} role="status" aria-live="polite">
         {variant === 'spinner' && <Spinner size={size} />}
         {variant === 'dots' && (
-          <div className="p-2 rounded-md bg-white/6 shadow-sm inline-flex">
+          <div className="p-2 rounded-md bg-white/6 shadow-sm  inline-flex">
             <Dots />
           </div>
         )}

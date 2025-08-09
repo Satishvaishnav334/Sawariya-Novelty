@@ -1,8 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { useUserDataContext } from '@/components/context/UserContext';
 function ProductUploadPage() {
+  const {teams,setLoading} = useUserDataContext()
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [price, setPrice] = useState('');
@@ -12,24 +13,11 @@ function ProductUploadPage() {
   const [image, setImage] = useState(null);
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
-  const [allCategories, setAllCategories] = useState([]);
-
-  // Load categories from backend (optional)
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const res = await axios.get('/api/get-categories'); // Update this route accordingly
-        setAllCategories(res.data);
-      } catch (err) {
-        console.error('Failed to load categories', err);
-      }
-    }
-    fetchCategories();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const formData = new FormData();
       formData.append('slug', name.toLowerCase().replace(/\s+/g, '-'));
       formData.append('name', name);
@@ -45,7 +33,7 @@ function ProductUploadPage() {
 
       const res = await axios.post('/api/get-products', formData);
       console.log('Product created:', res.data);
-      alert('Product uploaded successfully!');
+      
       
       setName('');
       setDesc('');
@@ -59,6 +47,9 @@ function ProductUploadPage() {
     } catch (err) {
       console.error('Product creation failed', err);
       alert('Failed to upload product');
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -115,7 +106,7 @@ function ProductUploadPage() {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="">Select Category</option>
-          {allCategories.map((cat) => (
+          {teams.map((cat) => (
             <option key={cat._id} value={cat._id}>
               {cat.name}
             </option>

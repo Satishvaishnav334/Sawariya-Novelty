@@ -33,7 +33,7 @@ function Page() {
               <TableHead >Team Members</TableHead>
             </TableRow>
           </TableHeader>
-          {user.team?.map((team, id) => (
+          {user?.team?.map((team, id) => (
             <TableBody key={id}>
               <TableRow>
                 <TableCell className="font-medium">{team?.teamName}</TableCell>
