@@ -39,6 +39,9 @@ useEffect(()=>{
 
 
   const Logout = async () => {
+    if(!user){
+      router.push("login")
+    }
     deleteCookie('token');
     deleteCookie('name');
     router.push('/login')
@@ -46,23 +49,23 @@ useEffect(()=>{
   return (
     <div className='w-full bg-white justify-end  flex border-b-black border-1 shadow-lg  '>
       <nav className='border-b-1 w-[100%] p-3 '>
-        <div className=' flex justify-between items-center   text-[#11111198]'>
-          <div className='text-black w-[25%]  lg:w-[40%]'>
+        <div className=' flex justify-between items-center w-full   text-[#11111198]'>
+
+          <div className='text-black  lg:w-[40%]'>
             <Link href='/dashboard'>  
-              <h1 className='text-2xl lg:text-4xl font-extrabold md:m-2'>Sawariya Novelty</h1>
+              <h1 className='text-xl lg:text-4xl font-extrabold md:m-2'>Sawariya Novelty</h1>
             </Link>
           </div>
-          <div className=' flex justify-between items-center    font-semibold text-lg gap-4'>
- {user?.role == 'admin' && (
+
+          <div className=' flex justify-between items-center ml-5 md:ml-5    font-semibold text-lg gap-4'>
+              {user?.role == 'admin' && (
               <Link href='/dashboard/admin' className='hover:text-[#111111d1] w-50  font-semibold transition-colors duration-300'>
                 Admin Panel
               </Link>
             )}
-            </div>
-          <div className=' hidden md:flex justify-between items-center w-[45%]   font-semibold text-lg gap-4'>
-            
-           
+          </div>
 
+          <div className=' hidden md:flex justify-between items-center w-[45%]   font-semibold text-lg gap-4'>
             {items.map((item, index) => (
               <Link key={index} href={item.href} className='hover:text-[#111111d1] transition-colors duration-300'>
                 {item.label}
@@ -79,13 +82,12 @@ useEffect(()=>{
                   Icon: <UserPen className="h-6 w-6" />,
                 },
                 {
-                  label: "Logout",
+                  label: user ? "Logout" : "Login",
                   onClick: () => Logout(),
                   Icon: <LogOut className="h-6 w-6" />,
                 },
               ]}
             >
-
             </DropdownMenu>
           </div>
 
