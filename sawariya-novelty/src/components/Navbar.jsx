@@ -120,7 +120,7 @@ useEffect(()=>{
                     Icon: <UserPen className="h-6 w-6" />,
                   },
                   {
-                    label: "Logout",
+                  label: user ? "Logout" : "Login",
                     onClick: () => {Logout();setIsOpen((false))},
                     Icon: <LogOut className="h-6 w-6" />,
                   },
