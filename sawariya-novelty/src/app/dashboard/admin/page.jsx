@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserDataContext } from '@/components/context/UserContext';
+import axios from 'axios';
 import {
   Table,
   TableBody,
@@ -35,10 +36,10 @@ function AdminDashboard() {
   }, [products, searchTerm, sortBy]);
 
   // Delete product
-  const handleDelete = async (id) => {
+  const handleDelete = async (slug) => {
     if (!confirm("Are you sure you want to delete this product?")) return;
     try {
-      const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+      const res = await axios.delete(`/api/get-products/${slug}`);
       if (res.ok) {
         alert("Product deleted successfully!");
         window.location.reload();
@@ -119,13 +120,13 @@ function AdminDashboard() {
               <TableCell>{product.category?.name}</TableCell>
               <TableCell className="text-right flex gap-2 justify-end">
                 <button
-                  onClick={() => handleDelete(product._id)}
+                  onClick={() => handleDelete(product.slug)}
                   className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                 >
                   Delete
                 </button>
                 <button
-                  onClick={() => router.push(`/dashboard/admin/edit-product/${product._id}`)}
+                  onClick={() => router.push(`/dashboard/admin/manage-products/edit/${product.slug}`)}
                   className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
                 >
                   Edit
