@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUserDataContext } from '@/components/context/UserContext';
 function ProductUploadPage() {
-  const {teams,setLoading} = useUserDataContext()
+  const {categorie,setLoading} = useUserDataContext()
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [price, setPrice] = useState('');
@@ -106,7 +106,7 @@ function ProductUploadPage() {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="">Select Category</option>
-          {teams.map((cat) => (
+          {categorie?.map((cat) => (
             <option key={cat._id} value={cat._id}>
               {cat.name}
             </option>

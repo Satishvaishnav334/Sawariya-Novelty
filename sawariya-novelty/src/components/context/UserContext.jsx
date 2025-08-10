@@ -9,15 +9,15 @@ const UserDataContext = createContext();
 export const UserDataProvider = ({ children, name }) => {
     const [user, setUser] = useState({})
     const [users, setUsers] = useState([])
-    const [tasks, setTasks] = useState([])
-    const [teams, setTeams] = useState([])
+    const [products, setProducts] = useState([])
+    const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(false)
     
     const fetchProducts = async () => {
         try {
             setLoading(true)
             const res4 = await axios.get('/api/get-products');
-            setTasks(res4.data)
+            setProducts(res4.data)
             setLoading(false)
         } catch (err) {
             console.error('❌ Failed to fetch categories:', err);
@@ -38,7 +38,7 @@ export const UserDataProvider = ({ children, name }) => {
         try {
             setLoading(true)
          const res3 = await axios.get('/api/get-categories');
-            setTeams(res3.data)
+            setCategories(res3.data)
             setLoading(false)
         } catch (err) {
             console.error('❌ Failed to fetch categories:', err);
@@ -67,7 +67,7 @@ export const UserDataProvider = ({ children, name }) => {
     }, []);     
    
 return (
-    <UserDataContext.Provider value={{ user, users, refresh: fetchProducts, teams, tasks ,loading,setLoading}}>
+    <UserDataContext.Provider value={{ user, users, refresh: fetchProducts, categories, products ,loading,setLoading}}>
         {children}
     </UserDataContext.Provider>
 );

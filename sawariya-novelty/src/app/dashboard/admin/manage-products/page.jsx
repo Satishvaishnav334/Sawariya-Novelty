@@ -13,7 +13,7 @@ import {
 import { useUserDataContext } from '@/components/context/UserContext'
 function Page() {
 
-  const { tasks } = useUserDataContext()
+  const { products } = useUserDataContext()
   
   return (
     <div className='overflow-scroll'>
@@ -38,15 +38,15 @@ function Page() {
               <TableHead className="text-right">Due Date</TableHead>
             </TableRow>
           </TableHeader>
-          {tasks?.map((task, id) => (
+          {products?.map((product, id) => (
             <TableBody key={id}>
               <TableRow>
-                <TableCell className="font-medium">{task?.title}</TableCell>
-                <TableCell>{task?.description}</TableCell>
-                <TableCell>{task?.status}</TableCell>
-                <TableCell>{task?.priority}</TableCell>
-                <TableCell>{task?.assignedTo?.map((user) => (user.name))}</TableCell>
-                <TableCell className="text-right">{formatDate(task?.dueDate)}</TableCell>
+                <TableCell className="font-medium">{product?.title}</TableCell>
+                <TableCell>{product?.description}</TableCell>
+                <TableCell>{product?.status}</TableCell>
+                <TableCell>{product?.priority}</TableCell>
+                <TableCell>{product?.assignedTo?.map((user) => (user.name))}</TableCell>
+                <TableCell className="text-right">{formatDate(product?.dueDate)}</TableCell>
               </TableRow>
             </TableBody>
           ))}

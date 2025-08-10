@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table"
 import { useUserDataContext } from '@/components/context/UserContext'
 function Page() {
-  const { teams } = useUserDataContext()
+  const { categories } = useUserDataContext()
   return (
     <div>
       Manage Teams
@@ -34,14 +34,14 @@ function Page() {
               <TableHead>Members</TableHead>
             </TableRow>
           </TableHeader>
-          {teams?.map((team, id) => (
+          {categories?.map((categorie, id) => (
             <TableBody key={id} >
               <TableRow>
-                <TableCell className="font-medium">{team?.teamName}</TableCell>
-                <TableCell>{team?.description}</TableCell>
-                <TableCell>{team?.level}</TableCell>
+                <TableCell className="font-medium">{categorie?.teamName}</TableCell>
+                <TableCell>{categorie?.description}</TableCell>
+                <TableCell>{categorie?.level}</TableCell>
                 <TableCell>
-                  {team?.members?.map((user, id) => (
+                  {categorie?.members?.map((user, id) => (
                     <TableCell key={id}>{user?.name}</TableCell>
                   ))}
                 </TableCell>

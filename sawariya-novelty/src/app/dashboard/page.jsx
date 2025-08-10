@@ -5,7 +5,7 @@ import { useUserDataContext } from '@/components/context/UserContext';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 function Page() {
-  const { tasks} = useUserDataContext()
+  const { products} = useUserDataContext()
   const router = useRouter()
 
  
@@ -20,11 +20,11 @@ function Page() {
        <div className="min-h-screen w-full px-6 py-10 bg-gray-50">
       <h1 className="text-3xl font-bold text-center mb-8">Product Catalog</h1>
 
-      {tasks.length === 0 ? (
+      {products?.length === 0 ? (
         <p className="text-center text-gray-500">No products found.</p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {tasks.map((product, index) => (
+          {products?.map((product, index) => (
             <div
               key={index}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300"

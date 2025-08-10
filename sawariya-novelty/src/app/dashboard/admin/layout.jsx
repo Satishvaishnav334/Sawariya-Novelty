@@ -16,17 +16,17 @@ export default function RootLayout({ children }) {
             ),
         },
         {
-            label: "Manage Teams",
-            href: "/dashboard/admin/manage-teams",
+            label: "Manage Products",
+            href: "/dashboard/admin/manage-products",
             icon: (
-                <Users className=" font-bold dark:text-neutral-200 h-6 w-6 flex-shrink-0 text-[#111111d1] transition-colors duration-300 ]" />
+                <ListTodo className=" font-bold dark:text-neutral-200 h-6 w-6 flex-shrink-0 text-[#111111d1] transition-colors duration-300 ]" />
             ),
         },
         {
-            label: "Manage Tasks",
-            href: "/dashboard/admin/manage-tasks",
+            label: "Manage Categories",
+            href: "/dashboard/admin/manage-categories",
             icon: (
-                <ListTodo className=" font-bold dark:text-neutral-200 h-6 w-6 flex-shrink-0 text-[#111111d1] transition-colors duration-300 ]" />
+                <Users className=" font-bold dark:text-neutral-200 h-6 w-6 flex-shrink-0 text-[#111111d1] transition-colors duration-300 ]" />
             ),
         },
 
