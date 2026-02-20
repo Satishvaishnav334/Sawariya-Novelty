@@ -7,7 +7,6 @@ import { deleteCookie, getCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useUserDataContext } from './context/UserContext';
-import BeautifulLoader from "@/components/Loading";
 
 function Navbar() {
   const router = useRouter();
@@ -53,10 +52,7 @@ useEffect(()=>{
             
       
     <div className='w-full bg-white justify-end  flex border-b-black border-1 shadow-lg  '>
-       {loading
-         ? 
-              <BeautifulLoader variant="spinner" fullscreen size={56} text="Loading dashboard..." />
-            :
+
       <nav className='border-b-1 w-[100%] p-3 '>
         <div className=' flex justify-between items-center w-full   text-[#11111198]'>
 
@@ -142,7 +138,6 @@ useEffect(()=>{
           }
         </div>
       </nav >
-        }
     </div >
     
   )

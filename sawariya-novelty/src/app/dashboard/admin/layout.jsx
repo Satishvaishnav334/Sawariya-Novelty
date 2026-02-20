@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";    
+import { useRouter } from "next/navigation";
 export default function RootLayout({ children }) {
     const links = [
         {
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
 
     ];
     const [open, setOpen] = useState(false);
+    const router = useRouter()
     useEffect(() => {
         const checkSession = () => {
             const token = getCookie('token');
